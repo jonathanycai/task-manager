@@ -227,10 +227,12 @@ progress[value] {
   appearance: none;
   height: 8px;
 }
+
 progress[value]::-webkit-progress-value {
   background-color: #09c;
   border-radius: 2px;
 }
+
 progress[value]::-webkit-progress-bar {
   background-color: #eee;
   border-radius: 2px;
