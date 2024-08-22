@@ -1,11 +1,13 @@
 import "./style.css";
-import { TaskList } from "./task";
+import { TaskProvider, TaskList } from "./task";
 
 function App() {
   return (
     <main>
       <h1>Task Manager</h1>
-      <TaskList />
+      <TaskProvider>
+        <TaskList />
+      </TaskProvider>
     </main>
   );
 }

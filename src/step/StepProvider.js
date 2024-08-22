@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useTask from "../task/useTask.js";
+import useTask from "../task/useTask";
 import StepContext from "./context";
 
 function StepProvider({ taskId, children }) {
@@ -36,12 +36,14 @@ function StepProvider({ taskId, children }) {
         actions: {
             setEditingStep,
             check,
+            add,
             edit,
             remove,
             moveUp,
-            moveDown
+            moveDown,
         },
     };
-    return <StepContext.Provider value={value}>{children}</StepContext.Provider>
+    return <StepContext.Provider value={value}>{children}</StepContext.Provider>;
 }
+
 export default StepProvider;

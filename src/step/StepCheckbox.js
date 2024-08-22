@@ -12,7 +12,7 @@ function StepCheckbox({ index }) {
             <input
                 type="checkbox"
                 checked={completed}
-                onChange={() => checkIndex}
+                onChange={() => check(index)}
             />
             {completed ? <s>{step}</s> : step}
         </label>
