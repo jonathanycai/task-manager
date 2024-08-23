@@ -102,6 +102,28 @@ function reducer(state, { type, payload }) {
                     };
                 }),
             };
+        case "MOVE_TO":
+            return {
+                ...state,
+                tasks: state.tasks.map((task) => {
+                    if (task.id !== payload.taskId) {
+                        return task;
+                    }
+                    const newSteps = task.steps.concat();
+                    const item = task.steps[payload.step];
+                    if (payload.position > payload.step) {
+                        newSteps.splice(payload.position, 0, item);
+                        newSteps.splice(payload.step, 1);
+                    } else {
+                        newSteps.splice(payload.step, 1);
+                        newSteps.splice(payload.position, 0, item);
+                    }
+                    return {
+                        ...task,
+                        steps: newSteps,
+                    };
+                }),
+            };
         case "MOVE_UP":
             return {
                 ...state,
@@ -146,7 +168,7 @@ function reducer(state, { type, payload }) {
 
 function getInitialState() {
     const tasks =
-        JSON.parse(localStorage.getItem("task-manager-items-priority")) ||
+        JSON.parse(localStorage.getItem("task-manager-items-dragging")) ||
         initialState;
     return {
         expandedId: null,
@@ -159,7 +181,7 @@ function useTaskReducer() {
 
     useEffect(() => {
         localStorage.setItem(
-            "task-manager-items-priority",
+            "task-manager-items-dragging",
             JSON.stringify(state.tasks)
         );
     }, [state.tasks]);
@@ -172,6 +194,7 @@ function useTaskReducer() {
     const editStep = (payload) => dispatch({ type: "EDIT_STEP", payload });
     const deleteStep = (payload) => dispatch({ type: "DELETE_STEP", payload });
     const addStep = (payload) => dispatch({ type: "ADD_STEP", payload });
+    const moveStepTo = (payload) => dispatch({ type: "MOVE_TO", payload });
     const moveStepUp = (payload) => dispatch({ type: "MOVE_UP", payload });
     const moveStepDown = (payload) => dispatch({ type: "MOVE_DOWN", payload });
 
@@ -186,6 +209,7 @@ function useTaskReducer() {
             editStep,
             deleteStep,
             addStep,
+            moveStepTo,
             moveStepUp,
             moveStepDown,
         },

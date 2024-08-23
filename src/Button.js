@@ -1,8 +1,9 @@
-function Button({ className = "", icon, label, ...rest }) {
+function Button({ as = "button", className = "", icon, label, ...rest }) {
+    const Element = as;
     return (
-        <button className={`icon-button ${className} {...rest}`}>
+        <Element className={`icon-button ${className}`} {...rest}>
             <img draggable={false} src={`icons/${icon}.svg`} alt={label} />
-        </button>
+        </Element>
     );
 }
 
